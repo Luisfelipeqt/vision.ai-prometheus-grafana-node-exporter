@@ -1,0 +1,22 @@
+{{ define "teste" }}
+  [{{.Status}}] {{ .Labels.alertname }}
+  
+  Labels:
+  {{ range .Labels.SortedPairs }}
+    {{ .Name }}: {{ .Value }}
+  {{ end }}
+  
+  {{ if gt (len .Annotations) 0 }}
+  Annotations:
+  {{ range .Annotations.SortedPairs }}
+    {{ .Name }}: {{ .Value }}
+  {{ end }}
+  {{ end }}
+  
+  {{ if gt (len .SilenceURL ) 0 }}
+    Silence alert: {{ .SilenceURL }}
+  {{ end }}
+  {{ if gt (len .DashboardURL ) 0 }}
+    Go to dashboard: {{ .DashboardURL }}
+  {{ end }}
+{{ end }}
